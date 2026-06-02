@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goals</title>
+    <style>
+        :root {
+            --bg-color: #0b0b0c;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a5;
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+        body { margin: 0; padding: 0; background-color: var(--bg-color); color: var(--text-primary); font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
+        #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; opacity: 0.25; }
+        header {
+            position: fixed; top: 0; width: 100%; padding: 20px 40px; box-sizing: border-box;
+            display: flex; justify-content: space-between; align-items: center; z-index: 10;
+            background: linear-gradient(to bottom, rgba(11,11,12,0.95), rgba(11,11,12,0)); backdrop-filter: blur(8px);
+        }
+        .logo { font-weight: 700; letter-spacing: 2px; text-decoration: none; color: var(--text-primary); }
+        nav a { color: var(--text-secondary); text-decoration: none; margin-left: 24px; font-size: 14px; transition: color 0.3s; }
+        nav a:hover, nav a.active { color: var(--text-primary); }
+
+        main {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 160px auto 100px auto;
+            padding: 0 40px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 48px;
+            font-weight: 400;
+            margin-bottom: 40px;
+            letter-spacing: -0.5px;
+        }
+
+        .content-body {
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        .content-body p {
+            margin-bottom: 28px;
+            text-align: justify;
+        }
+
+        .download-container {
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            border: 1px solid var(--border-color);
+            padding: 12px 24px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.02);
+            transition: all 0.3s ease;
+        }
+
+        .btn-download:hover {
+            background: var(--text-primary);
+            color: var(--bg-color);
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="bg-canvas"></canvas>
+
+    <header>
+        <a href="index.html" class="logo">EVA</a>
+        <nav>
+            <a href="index.html">About</a>
+            <a href="goals.html" class="active">Statement of Goals</a>
+            <a href="films.html">Films</a>
+            <a href="motion.html">Motion Graphics</a>
+            <a href="designs.html">Designs</a>
+            <a href="games.html">Games</a>
+            <a href="physical.html">Physical Art</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Statement of Goals</h1>
+        <div class="content-body">
+            <p>In my work within UTSC, I want to use media arts to explore the intersection of modern social critiques and dynamic science communication. For me, media art is not just about aesthetics; it is an active investigative tool to unpack how modern technological networks, and urban systems shape the way we think, feel, and live together.</p>
+            
+            <p>When looking at modern society, I am drawn to both the physical struggles within our cities and the quiet ways digital innovation alters our daily lives. My documentary, <em>211 - Investigation of Homelessness in Toronto</em>, deals with the physical side by mapping out the realities of an unhoused population navigating housing, substance use, and employment barriers in a dense urban landscape. Taking a raw, street-level camera into these spaces taught me that media shouldn't just stand back and watch; it should actively listen, connect people, and advocate for systemic change. On the other hand, my short film <em>Mushroom Infection</em> explores the psychological impact of our tech-driven world through the lens of body horror. Here, a spreading fungal contagion acts as a direct metaphor for the digital age, showing how hyper-connectivity and the internet can quietly take over our lives until we risk losing our individuality to a collective, digital network. Together, these projects reflect my commitment to examining the modern world from both a social and a socio-technological viewpoint.</p>
+            
+            <p>Alongside these social themes, I am deeply focused on science communication, specifically finding intuitive ways to translate complex biological mechanisms and human data into clear visual formats. So much incredible scientific insight—especially regarding cellular proteins and human motor skills—is locked away behind dense academic jargon and complicated numbers. I see media artists as vital translators who can bring these invisible processes to light. On a microscopic level, I want to use motion graphics, data modeling, and 3D space to visualize how proteins move and behave, turning abstract biochemistry into an accessible visual story. On a macroscopic scale, I want to focus on the tracking and mapping of human motor skills, using interactive design to turn clinical data into clear visual feedback that helps both physicians and patients understand physical progress.</p>
+            
+            <p>Looking ahead, my main objective is to move past traditional film to build interactive digital spaces where science, data, and storytelling live together. My immediate goal is to design clean, user-friendly web interfaces that make complex health and biological datasets easy for regular people to navigate. Instead of just documenting scientific discoveries after they happen, I plan to collaborate directly with research laboratories across the sciences and humanities, stepping in as an information designer to build these visual tools and motion assets right alongside scientists from a project's inception. Ultimately, I want to create public digital installations and open-access platforms that use real-time data mapping and storytelling to make the invisible forces of health and technology visible to the community. Receiving the John McHale Memorial Scholarship in Media Arts would be a massive catalyst for this journey.</p>
+        </div>
+
+        <div class="download-container">
+            <a href="assets/Yuxin Guo_Statement of Goals.pdf" download class="btn-download">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d=\"M8 12L3 7L4.4 5.55L7 8.15V0H9V8.15L11.6 5.55L13 7L8 12ZM0 16V11H2V14H14V11h2v5H0Z\"/>
+                </svg>
+                Download Statement Of Goals (PDF)
+            </a>
+        </div>
+    </main>
+
+    <script>
+        const canvas = document.getElementById('bg-canvas'); const ctx = canvas.getContext('2d'); let dots = [];
+        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        window.addEventListener('resize', resize); resize();
+        for(let i=0; i<25; i++) dots.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*1+0.5, sx: (Math.random()-0.5)*0.2, sy: (Math.random()-0.5)*0.2 });
+        function draw() {
+            ctx.clearRect(0,0,canvas.width,canvas.height); ctx.fillStyle = '#ffffff';
+            dots.forEach(d => { d.x += d.sx; d.y += d.sy; if(d.x<0||d.x>canvas.width) d.sx*=-1; if(d.y<0||d.y>canvas.height) d.sy*=-1; ctx.beginPath(); ctx.arc(d.x,d.y,d.r,0,Math.PI*2); ctx.fill(); });
+            requestAnimationFrame(draw);
+        }
+        draw();
+    </script>
+</body>
+</html>

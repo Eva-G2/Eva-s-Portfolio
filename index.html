@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EVA — Narrative Systems Map</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="intro-section">
+    <div class="intro-content">
+      <span class="brand-tag">EVA'S PORTFOLIO</span>
+      <h1 class="main-title">Designing spaces where systems meet stories.</h1>
+      <p class="main-body">
+        A multi-disciplinary artist creating visual narratives and interactive systems that transform abstract life sciences into a lens of joy, while mapping how modern technology shapes our identity, memory, and connection.
+      </p>
+      <div class="scroll-prompt" onclick="scrollToMap()">CLICK TO SEE DETAILS</div>
+    </div>
+  </header>
+
+  <nav class="sticky-nav">
+    <div class="nav-container">
+      <div class="nav-links">
+        <a href="index.html" class="nav-item active">About</a>
+        <a href="goals.html" class="nav-item">Statement of Goals</a>
+        
+        <div class="nav-dropdown">
+          <button class="drop-btn">Types of Medium <span class="arrow">▼</span></button>
+          <div class="dropdown-content">
+            <a href="films.html">Films</a>
+            <a href="motion.html">Motion Graphics</a>
+            <a href="designs.html">2D & 3D Designs</a>
+            <a href="games.html">Games</a>
+            <a href="physical.html">Physical Art Pieces</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <section class="canvas-section" id="canvasSection">
+    <canvas id="mapCanvas"></canvas>
+  </section>
+
+  <div id="projectModal" class="modal-overlay">
+    <div class="modal-card">
+      <button class="close-btn" onclick="closeModal()">&times;</button>
+      <div class="modal-split">
+        <div class="modal-media-side" id="modalMedia"></div>
+        <div class="modal-content-side">
+          <span id="modalCategory" class="project-tag">CATEGORY</span>
+          <h2 id="modalTitle" class="project-headline">Project Title</h2>
+          <div id="modalDescription" class="project-body"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Films</title>
+    <style>
+        /* Import Playfair Display for the artistic heading style */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
+
+        :root {
+            --bg-color: #0b0b0c;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a5;
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+        body { 
+            margin: 0; 
+            padding: 0; 
+            background-color: var(--bg-color); 
+            color: var(--text-primary); 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            overflow-x: hidden; 
+        }
+        #bg-canvas { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            z-index: 1; 
+            pointer-events: none; 
+            opacity: 0.25; 
+        }
+        header {
+            position: fixed; top: 0; width: 100%; padding: 20px 40px; box-sizing: border-box;
+            display: flex; justify-content: space-between; align-items: center; z-index: 10;
+            background: linear-gradient(to bottom, rgba(11,11,12,1), rgba(11,11,12,0.5),rgba(11,11,12,0)); backdrop-filter: blur(8px);
+        }
+        .logo { font-weight: 700; letter-spacing: 2px; text-decoration: none; color: var(--text-primary); }
+        nav a { color: var(--text-secondary); text-decoration: none; margin-left: 24px; font-size: 14px; transition: color 0.3s; }
+        nav a.active { color: var(--text-primary); }
+        
+        /* Expanded main container to allow for wider content layout */
+        main { 
+            position: relative; 
+            z-index: 2; 
+            max-width: 1050px; 
+            margin: 160px auto 100px auto; 
+            padding: 0 20px; 
+            box-sizing: border-box;
+        }
+        
+        /* Expanded text width to perfectly match the new video sizing */
+        .intro-section {
+            max-width: 880px;
+            margin: 0 auto;
+        }
+        
+        /* Much larger, artistic heading style */
+        h1 { 
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 64px; 
+            font-weight: 400; 
+            letter-spacing: -1px; 
+            margin-bottom: 35px; 
+            color: var(--text-primary);
+        }
+        
+        /* Upscaled introduction paragraph text */
+        .intro-section p { 
+            font-size: 20px; 
+            line-height: 1.8; 
+            color: var(--text-secondary); 
+            margin-bottom: 24px; 
+        }
+        
+        /* Make the separation line longer (extends slightly wider than content) */
+        .page-divider { 
+            border: 0; 
+            height: 1px; 
+            background: #ffffff; 
+            opacity: 0.5;
+            margin: 60px auto; 
+            max-width: 1180px;
+        }
+        
+        .video-showcase { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 100px; 
+            width: 100%; 
+        }
+        
+        /* Made videos slightly larger (Upscaled from 760px to 880px) */
+        .video-card { 
+            width: 100%; 
+            text-align: left; 
+            margin: 0 auto; 
+            max-width: 880px; 
+        }
+        
+        .video-wrapper {
+            position: relative; 
+            width: 100%; 
+            padding-bottom: 56.25%; /* Classic 16:9 widescreen display */
+            height: 0;
+            background: #000; 
+            border-radius: 4px; 
+            overflow: hidden;
+            border: 1px solid var(--border-color); 
+            margin-bottom: 32px;
+        }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        
+        /* Artistic, larger subtitle layout */
+        .video-info h2 { 
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 34px; 
+            font-weight: 400;
+            letter-spacing: -0.5px;
+            margin-bottom: 20px; 
+            color: var(--text-primary);
+        }
+        
+        /* Upscaled project body text */
+        .video-info p { 
+            font-size: 16px; 
+            color: var(--text-secondary); 
+            line-height: 1.8; 
+            margin-bottom: 20px; 
+        }
+        .video-info p:last-child { margin-bottom: 0; }
+
+        /* Smooth scaling for mid-range screens and mobile environments */
+        @media (max-width: 1024px) {
+            .intro-section, .video-card, .page-divider {
+                max-width: 90%;
+            }
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 48px; }
+            .video-info h2 { font-size: 28px; }
+            .intro-section p { font-size: 18px; }
+            .video-info p { font-size: 15px; }
+            header { padding: 20px; }
+            nav a { margin-left: 14px; font-size: 13px; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="bg-canvas"></canvas>
+    <header>
+        <a href="index.html" class="logo">PORTFOLIO</a>
+        <nav>
+            <a href="index.html">System Map</a>
+            <a href="films.html" class="active">Films</a>
+            <a href="motion.html">Motion Graphics</a>
+            <a href="designs.html">2D & 3D Designs</a>
+            <a href="games.html">Games</a>
+            <a href="physical.html">Physical Art Pieces</a>
+            <a href="goals.html">Goals</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="intro-section">
+            <h1>Films</h1>
+            <p>Film has served as a powerful storytelling medium for over 130 years. Today, in the digital age, democratization means nearly anyone can become a filmmaker. Because the tools are now universally accessible, the true impact of a piece relies entirely on the strength of the story itself.</p>
+            <p>However, a film is never just about the narrative displayed on the screen. It also archives the journey of its creators. Behind every frame lies our team’s own story—one shaped by intense collaboration, shared challenges, and the collective joy of bringing a vision to life.</p>
+        </div>
+
+        <hr class="page-divider">
+
+        <div class="video-showcase">
+            <!-- Film 1: Homelessness Doc -->
+            <div class="video-card">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/zgMyfcOmEZs" allowfullscreen></iframe>
+                </div>
+                <div class="video-info">
+                    <h2>211 - Investigation of Homelessness in Toronto</h2>
+                    <p>211 - Investigation of Homelessness in Toronto is an investigative documentary that focuses on the harsh realities facing the city's unhoused population. In a dense, hyper-expensive urban landscape, slipping through the cracks can feel like an inescapable trap. We unpack this complex crisis across four core pillars—Housing, Substance Use, Employment, and Access to Aid—by centring the film on the lived experiences of three distinct individuals. Through their lenses, the audience is invited to slowly discover and deeply understand a community that society too often leaves unseen.</p>
+                    <p>When we first started the planning process, our team faced a lot of anxiety—from peers and loved ones—about the safety and ethical weight of bringing a camera into such vulnerable spaces. But once we began rolling, the lens became a tool for connection rather than a barrier. Choosing a raw, street-level aesthetic was a bold creative risk, but it was the best decision we made. It forced us to abandon preconceived notions and truly listen. What we captured on screen was powerful, but what we learned as media creators went far deeper. We documented intense hardships, but the camera also caught incredible moments of resilience, hope, and community support. For me, this project proved that media shouldn’t just observe—it should advocate. This film isn't the end of my investigation, but the start of using storytelling to amplify voices that need to be heard.</p>
+                </div>
+            </div>
+
+            <!-- Film 2: Mushroom Infection -->
+            <div class="video-card">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/S2hL7kBhhro" allowfullscreen></iframe>
+                </div>
+                <div class="video-info">
+                    <h2>Mushroom Infection</h2>
+                    <p>A piece of body horror, Mushroom Infection explores the psychological and physical breakdown of three roommates as an aggressive contagion takes hold. As emotions peak and the truth is unraveled, the world as they know it ends—or does it?</p>
+                    <p>The fungi function as a metaphorical structure, symbolizing how the digital era spreads through society until no one can escape. The characters' shared visions mimic the seamless, overwhelming connectivity of the internet. The colorful, euphoric hallucinations look dangerous and insane from the outside, but is that the true ending? Is our main character, Ada, truly gone? Or have the infected abandoned a broken reality to inhabit a collective, digital-organic world of their own?</p>
+                </div>
+            </div>
+
+            <!-- Film 3: Alex's Choices -->
+            <div class="video-card">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/C1q_xeP9_N0" allowfullscreen></iframe>
+                </div>
+                <div class="video-info">
+                    <h2>Alex’s Choices</h2>
+                    <p>Alex’s Choices is a short public service announcement (PSA) that charts a university student’s rapid descent into the cycle of sports gambling. To immerse the audience in the psychology of addiction, the film utilizes the narrative mechanics of a choice-driven game, demonstrating how a single, seemingly trivial decision can alter a life's trajectory. While the film concludes on a hopeful note, it poses a haunting question about reality: Do we truly get a second chance to rewrite our choices? Ultimately, the project serves as a sharp critique of the digital landscape, directly confronting the predatory prevalence of gambling advertisements targeted at youth on social media.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const canvas = document.getElementById('bg-canvas'); const ctx = canvas.getContext('2d'); let dots = [];
+        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        window.addEventListener('resize', resize); resize();
+        for(let i=0; i<25; i++) dots.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*1+0.5, sx: (Math.random()-0.5)*0.2, sy: (Math.random()-0.5)*0.2 });
+        function draw() {
+            ctx.clearRect(0,0,canvas.width,canvas.height); ctx.fillStyle = '#ffffff';
+            dots.forEach(d => { d.x += d.sx; d.y += d.sy; if(d.x<0||d.x>canvas.width) d.sx*=-1; if(d.y<0||d.y>canvas.height) d.sy*=-1; ctx.beginPath(); ctx.arc(d.x,d.y,d.r,0,Math.PI*2); ctx.fill(); });
+            requestAnimationFrame(draw);
+        }
+        draw();
+    </script>
+</body>
+</html>

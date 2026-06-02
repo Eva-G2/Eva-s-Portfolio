@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graphic & Asset Designs</title>
+    <style>
+        :root {
+            --bg-color: #0b0b0c;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a5;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --accent-color: #ffffff;
+        }
+        body { margin: 0; padding: 0; background-color: var(--bg-color); color: var(--text-primary); font-family: -apple-system, BlinkMacSystemFont, sans-serif; overflow-x: hidden; }
+        header {
+            position: fixed; top: 0; width: 100%; padding: 20px 40px; box-sizing: border-box;
+            display: flex; justify-content: space-between; align-items: center; z-index: 10;
+            background: linear-gradient(to bottom, rgba(11,11,12,0.95), rgba(11,11,12,0)); backdrop-filter: blur(8px);
+        }
+        .logo { font-weight: 700; letter-spacing: 2px; text-decoration: none; color: var(--text-primary); }
+        nav a { color: var(--text-secondary); text-decoration: none; margin-left: 24px; font-size: 14px; }
+        nav a.active { color: var(--text-primary); }
+        
+        main { max-width: 1300px; margin: 140px auto 60px auto; padding: 0 20px; }
+        h1 { font-family: "Didot", "Bodoni MT", "Cinzel", "Georgia", serif; font-size: 64px; font-weight: 500; letter-spacing: -1px; margin-bottom: 32px; }
+        .intro-section p { font-size: 17px; line-height: 1.8; color: var(--text-secondary); max-width: 1400px; }
+        
+        /* Filter Button Styling */
+        .filter-nav { display: flex; gap: 16px; margin: 40px 0 20px 0; }
+        .filter-btn {
+            background: transparent; border: 1px solid var(--border-color); color: var(--text-secondary);
+            padding: 8px 20px; font-size: 14px; border-radius: 20px; cursor: pointer; transition: all 0.3s ease;
+        }
+        .filter-btn:hover { border-color: rgba(255,255,255,0.3); color: var(--text-primary); }
+        .filter-btn.active { background: var(--accent-color); border-color: var(--accent-color); color: var(--bg-color); font-weight: 500; }
+
+        .page-divider { border: 0; height: 1px; background: linear-gradient(to right, var(--border-color), transparent); margin: 0 0 40px 0; }
+        
+        /* Showcase Container & Grid Systems */
+        .showcase-container { position: relative; width: 100%; }
+        .masonry-grid { column-count: 4; column-gap: 20px; width: 100%; display: none; }
+        .masonry-grid.active-grid { display: block; animation: fadeIn 0.4s ease forwards; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 1100px) { .masonry-grid { column-count: 3; } }
+        @media (max-width: 768px) { .masonry-grid { column-count: 2; } }
+        @media (max-width: 480px) { .masonry-grid { column-count: 1; } }
+
+        .grid-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; break-inside: avoid; margin-bottom: 20px; cursor: pointer; overflow: hidden; transition: transform 0.3s ease, border-color 0.3s; }
+        .grid-card:hover { transform: scale(1.02); border-color: rgba(255,255,255,0.2); }
+        .grid-card img, .grid-card video { width: 100%; height: auto; display: block; }
+
+        /* Isolated Overlay Player for Media Focus */
+        .viewer-overlay { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11,11,12,0.96); 
+            z-index: 100; display: none; align-items: center; justify-content: center; 
+        }
+        .viewer-overlay.active { display: flex; }
+        .close-btn { position: absolute; top: 30px; right: 40px; background: none; border: none; color: #fff; font-size: 36px; cursor: pointer; z-index: 101; }
+        
+        .viewer-content { max-width: 90vw; max-height: 85vh; display: none; border-radius: 4px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6); }
+        .viewer-content.show { display: block; }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">PORTFOLIO</a>
+        <nav>
+            <a href="index.html">System Map</a>
+            <a href="films.html">Films</a>
+            <a href="motion.html">Motion Graphics</a>
+            <a href="designs.html" class="active">2D & 3D Designs</a>
+            <a href="games.html">Games</a>
+            <a href="physical.html">Physical Art Pieces</a>
+            <a href="goals.html">Goals</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Graphic & Asset Designs</h1>
+        <div class="intro-section">
+            <p>At first glance, graphic design and 3D modelling appear to be vastly different disciplines. Yet, when exploring complex multimedia forms, they reveal themselves as the inseparable, fundamental building blocks of any advanced visual system. The following collection is an archive of visual designs that are not meant to stand in isolation. Instead, I view these components as the cells of a larger organism, or the individual citizens of a broader society—each serving as a vital, foundational element designed to integrate into a much grander creative vision.</p>
+        </div>
+
+        <!-- Filter Sub-Navigation Toggles -->
+        <div class="filter-nav">
+            <button class="filter-btn active" onclick="switchTab('vector-art', this)">2D Graphics</button>
+            <button class="filter-btn" onclick="switchTab('3d-assets', this)">3D Models</button>
+        </div>
+
+        <hr class="page-divider">
+
+        <div class="showcase-container">
+            
+            <!-- GRID 1: 2D VECTOR ART (CLEANED) -->
+            <div id="vector-art" class="masonry-grid active-grid">
+                <div class="grid-card" onclick="openMedia(this, 'image')"><img src="Designs/Bird-1.png" alt="Bird 1"></div>
+                <div class="grid-card" onclick="openMedia(this, 'image')"><img src="Designs/Bird-2.png" alt="Bird 2"></div>
+                <div class="grid-card" onclick="openMedia(this, 'image')"><img src="Designs/Car.png" alt="Car"></div>
+                <div class="grid-card" onclick="openMedia(this, 'image')"><img src="Designs/Cat-1.png" alt="Cat 1"></div>
+                <div class="grid-card" onclick="openMedia(this, 'image')"><img src="Designs/Cat-2.png" alt="Cat 2"></div>
+                <div class="grid-card" onclick="openMedia(this, 'image')"><img src="Designs/Flat.png" alt="Flat Design"></div>
+                <div class="grid-card" onclick="openMedia(this, 'image')"><img src="Designs/Logo.png" alt="Spirit Dialogue Logo"></div>
+                <div class="grid-card" onclick="openMedia(this, 'image')"><img src="Designs/Minimal.png" alt="Minimal Design"></div>
+                <div class="grid-card" onclick="openMedia(this, 'image')"><img src="Designs/Professional.png" alt="Professional Design"></div>
+                <div class="grid-card" onclick="openMedia(this, 'image')"><img src="Designs/Turtle-1.png" alt="Turtle 1"></div>
+                <div class="grid-card" onclick="openMedia(this, 'image')"><img src="Designs/Turtle-2.png" alt="Turtle 2"></div>
+            </div>
+
+            <!-- GRID 2: 3D MODELS & COMPONENTS (BALANCED + TEXT TAGS REMOVED) -->
+            <div id="3d-assets" class="masonry-grid">
+                <!-- Column 1 Top: Video A -->
+                <div class="grid-card" onclick="openMedia(this, 'video')">
+                    <video src="3DModels/A.mp4" loop muted autoplay playsinline></video>
+                </div>
+                <!-- Column 1 Bottom -->
+                <div class="grid-card" onclick="openMedia(this, 'image')"><img src="3DModels/C.webp" alt="3D Render C"></div>
+                
+                <!-- Column 2 Items -->
+                <div class="grid-card" onclick="openMedia(this, 'image')"><img src="3DModels/H.webp" alt="3D Render H"></div>
+                <div class="grid-card" onclick="openMedia(this, 'image')"><img src="3DModels/I.webp" alt="3D Render I"></div>
+                
+
+                <!-- Column 3 Items -->
+                <div class="grid-card" onclick="openMedia(this, 'image')"><img src="3DModels/F.webp" alt="3D Render F"></div>
+                <div class="grid-card" onclick="openMedia(this, 'image')"><img src="3DModels/G.webp" alt="3D Render G"></div>
+
+                <!-- Column 4 Top: Video B -->
+                <div class="grid-card" onclick="openMedia(this, 'video')">
+                    <video src="3DModels/B.mp4" loop muted autoplay playsinline></video>
+                </div>
+                <!-- Column 4 Bottom -->
+                <div class="grid-card" onclick="openMedia(this, 'image')"><img src="3DModels/D.webp" alt="3D Render D"></div>
+                
+                <!-- Added -->
+                <div class="grid-card" onclick="openMedia(this, 'image')"><img src="3DModels/E.webp" alt="3D Render E"></div>
+                <div class="grid-card" onclick="openMedia(this, 'image')"><img src="3DModels/J.webp" alt="3D Render J"></div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Standalone Modal Media Viewer -->
+    <div class="viewer-overlay" id="vOverlay">
+        <button class="close-btn" onclick="closeViewer()">&times;</button>
+        <img id="vImg" class="viewer-content" src="" alt="">
+        <video id="vVideo" class="viewer-content" src="" controls loop></video>
+    </div>
+
+    <script>
+        const overlay = document.getElementById('vOverlay');
+        const viewerImg = document.getElementById('vImg');
+        const viewerVideo = document.getElementById('vVideo');
+
+        function switchTab(gridId, button) {
+            document.querySelectorAll('.masonry-grid').forEach(grid => grid.classList.remove('active-grid'));
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(gridId).classList.add('active-grid');
+            button.classList.add('active');
+        }
+        
+        function openMedia(element, type) {
+            viewerImg.classList.remove('show');
+            viewerVideo.classList.remove('show');
+            viewerVideo.pause();
+
+            if (type === 'image') {
+                viewerImg.src = element.querySelector('img').src;
+                viewerImg.classList.add('show');
+            } else if (type === 'video') {
+                viewerVideo.src = element.querySelector('video').src;
+                viewerVideo.classList.add('show');
+                viewerVideo.play();
+            }
+            overlay.classList.add('active');
+        }
+        
+        function closeViewer() { 
+            overlay.classList.remove('active'); 
+            viewerVideo.pause();
+            viewerImg.src = ""; 
+            viewerVideo.src = ""; 
+        }
+        
+        overlay.addEventListener('click', (e) => { 
+            if (e.target === overlay) closeViewer(); 
+        });
+    </script>
+</body>
+</html>

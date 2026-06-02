@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physical Art Portfolio</title>
+    <style>
+        :root {
+            --bg-color: #0b0b0c;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a5;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --accent-color: #ffffff;
+        }
+        body { margin: 0; padding: 0; background-color: var(--bg-color); color: var(--text-primary); font-family: -apple-system, BlinkMacSystemFont, sans-serif; overflow-x: hidden; }
+        
+        /* Central Header Navigation */
+        header {
+            position: fixed; top: 0; width: 100%; padding: 20px 40px; box-sizing: border-box;
+            display: flex; justify-content: space-between; align-items: center; z-index: 10;
+            background: linear-gradient(to bottom, rgba(11,11,12,0.95), rgba(11,11,12,0)); backdrop-filter: blur(8px);
+        }
+        .logo { font-weight: 700; letter-spacing: 2px; text-decoration: none; color: var(--text-primary); }
+        nav a { color: var(--text-secondary); text-decoration: none; margin-left: 24px; font-size: 14px; }
+        nav a.active { color: var(--text-primary); }
+        
+        /* Main Layout Constraints & Editorial Typography */
+        main { max-width: 1400px; margin: 160px auto 80px auto; padding: 0 20px; }
+        
+        /* Serif Academic/Cinematic Header Style */
+        h1 { font-family: "Didot", "Bodoni MT", "Cinzel", "Georgia", serif; font-size: 64px; font-weight: 500; letter-spacing: -1px; margin-bottom: 32px; }
+        h2 { font-family: "Didot", "Bodoni MT", "Cinzel", "Georgia", serif; font-size: 36px; font-weight: 500; letter-spacing: -0.5px; margin: 0 0 24px 0; color: var(--text-primary); }
+        
+        .intro-section p { 
+            font-size: 20px; 
+            line-height: 1.8; 
+            color: var(--text-secondary); 
+            max-width: 1400px; 
+            margin-bottom: 30px;
+        }
+        
+        .page-divider { border: 0; height: 1px; background: linear-gradient(to right, var(--border-color), transparent); margin: 60px 0; }
+        
+        /* Art Project Component Structural Blocks */
+        .art-project { margin-bottom: 60px; }
+        .art-project .description-block { 
+            font-size: 20px; 
+            line-height: 1.8; 
+            color: var(--text-secondary); 
+        }
+        .art-project .description-block p { margin-top: 0; margin-bottom: 20px; }
+        .art-project .description-block p:last-child { margin-bottom: 0; }
+
+        /* Dynamic Staggered Media/Text Parallel Rows */
+        .split-row { display: flex; gap: 50px; align-items: center; margin-bottom: 50px; }
+        .split-row.reverse { flex-direction: row-reverse; }
+        .split-text { flex: 1; }
+        
+        /* Container forcing image label groupings */
+        .image-labeled-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex: 0 0 48%; 
+            max-width: 48%;
+        }
+        
+        .split-media { 
+            width: 100%;
+            aspect-ratio: 16 / 9; 
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 8px; 
+            overflow: hidden; 
+            cursor: pointer;
+            transition: transform 0.3s ease, border-color 0.3s;
+        }
+        .split-media:hover { transform: scale(1.01); border-color: rgba(255,255,255,0.2); }
+        .split-media img, .split-media video { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+        .image-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-family: -apple-system, sans-serif;
+            letter-spacing: 0.5px;
+            margin-top: 2px;
+        }
+
+        /* Double Small Image Component Layout */
+        .media-double {
+            display: flex;
+            gap: 16px;
+            flex: 0 0 48%;
+            max-width: 48%;
+        }
+        .media-double .sub-media {
+            flex: 1;
+            aspect-ratio: 4 / 3;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease, border-color 0.3s;
+        }
+        .media-double .sub-media:hover { transform: scale(1.02); border-color: rgba(255,255,255,0.2); }
+        .media-double .sub-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+        /* Interactive Slider Component Style */
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex: 0 0 48%;
+            max-width: 48%;
+        }
+        .slider-arrow {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, border-color 0.2s, opacity 0.2s;
+            user-select: none;
+        }
+        .slider-arrow:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--text-primary);
+        }
+        .slider-arrow.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .slider-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Responsive UI Breakpoints */
+        @media (max-width: 968px) {
+            .split-row, .split-row.reverse { flex-direction: column; align-items: stretch; gap: 24px; margin-bottom: 32px; }
+            .split-media, .media-double, .image-labeled-container, .slider-container { max-width: 100%; width: 100%; flex: 1 1 auto; }
+            h1 { font-size: 48px; }
+            h2 { font-size: 28px; }
+        }
+        @media (max-width: 568px) {
+            h1 { font-size: 38px; }
+            .media-double { flex-direction: column; gap: 12px; }
+            .media-double .sub-media { aspect-ratio: 16 / 9; }
+            .slider-container { gap: 10px; }
+        }
+
+        /* Fullscreen Lightbox Media Viewer */
+        .viewer-overlay { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11,11,12,0.96); 
+            z-index: 100; display: none; align-items: center; justify-content: center; 
+        }
+        .viewer-overlay.active { display: flex; }
+        .close-btn { position: absolute; top: 30px; right: 40px; background: none; border: none; color: #fff; font-size: 36px; cursor: pointer; z-index: 101; }
+        
+        .viewer-content { max-width: 90vw; max-height: 85vh; display: none; border-radius: 4px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6); }
+        .viewer-content.show { display: block; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo">PORTFOLIO</a>
+        <nav>
+            <a href="index.html">System Map</a>
+            <a href="films.html">Films</a>
+            <a href="motion.html">Motion Graphics</a>
+            <a href="designs.html">Graphic Designs</a>
+            <a href="games.html">Games</a>
+            <a href="physical.html" class="active">Physical Art Pieces</a>
+            <a href="goals.html">Goals</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Physical Art</h1>
+        
+        <div class="intro-section">
+            <p>Perhaps it seems strange to find a physical art section among all the digital projects. However, throughout my process of exploration, working with different physical mediums became an unbreakable part of my narrative.</p>
+            <p>This section mainly contains my recent ceramic works. There is a genuine magic in the material itself. In its newborn stage, clay is soft, sticky, easily sculpted, and completely reusable. Yet, once fired, it gains a hardness greater than steel. Throughout the process of creating a physical piece, there are countless opportunities for flaws to appear—and unlike the digital screen, there is no Command Z. This unpredictability is its own magical element; during the journey of drying and firing, shapes, sizes, and colors all have their own art of changing. In comparison with making digital art, clay provides far less certainty, and demands a great deal more patience. Such drastically different, even opposite forms of art, work together to help me tell deeper stories under the same creative themes.</p>
+        </div>
+
+        <hr class="page-divider">
+
+        <section class="art-project">
+            
+            <div class="split-row">
+                <div class="split-text">
+                    <h2>Ceratophrys</h2>
+                    <div class="description-block">
+                        <p>This collection is not a typical group of work. It was created in memory of an unforgettable research process that began with a mystery bone specimen from a museum. Throughout a five-week journey, I slowly discovered the names of each component of the skull, until the species was finally revealed: <em>Ceratophrys ornata</em>.</p>
+                    </div>
+                </div>
+                <div class="media-double">
+                    <div class="sub-media" onclick="openMedia(this, 'image')">
+                        <img src="Physical/Specimen.webp" alt="Bone Specimen Original">
+                    </div>
+                    <div class="sub-media" onclick="openMedia(this, 'image')">
+                        <img src="Physical/Analysed%20Specimen.webp" alt="Analysed Specimen Mapping">
+                    </div>
+                </div>
+            </div>
+
+            <div class="split-row reverse">
+                <div class="split-text">
+                    <div class="description-block">
+                        <p>In memory of the specimen and this process, I created two drastically different pieces of art. One is a ceramic plate featuring the drawn documentation of the bone. After firing, this plate may be able to last for thousands of years, passed through human hands or buried deep in the soil—longlastingly documenting my findings and my joy in this project. However, porcelain is inherently fragile. With just a little mishandling, it could crash into pieces and never be complete again.</p>
+                    </div>
+                </div>
+                <div class="image-labeled-container">
+                    <div class="split-media" onclick="openMedia(this, 'image')">
+                        <img src="Physical/C2.webp" alt="Ceramic Plate View 2">
+                    </div>
+                </div>
+            </div>
+
+            <div class="split-row">
+                <div class="split-text">
+                    <div class="description-block">
+                        <p>The other piece is an altered 3D model composed from a phone scan of the specimen, tracking every single divot and bump of the bone. If it is stored correctly, this 3D model could also last as long as humanity exists. Yet, it sits on a knife's edge: with a simple slip of a fingertip, the file could be easily deleted and lost forever.</p>
+                        <p>Throughout this project, I experimented with three entirely different mediums: the bone specimen itself, traditional ceramics, and digital media—crossing the realms of biology, traditional craft, and digital art. In our digital era, people tend to believe that digitally stored files will be there forever, but we often forget the hidden costs behind data storage. Who will ultimately last longer—the fragile plate or the digital model? I guess we will only find out long, long after.</p>
+                    </div>
+                </div>
+                <div class="image-labeled-container">
+                    <div class="split-media" onclick="openMedia(this, 'video')">
+                        <video src="Physical/Specimen%20Model.mp4" loop muted autoplay playsinline></video>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="page-divider">
+
+        <section class="art-project">
+            
+            <div class="split-row">
+                <div class="split-text">
+                    <h2>Working Beings</h2>
+                    <div class="description-block">
+                        <p>This ceramic piece is a deliberate replica of a historical artifact housed in a museum, which originally depicted the workers and environment of a traditional porcelain factory.</p>
+                        <p>My version meticulously recreates the architecture and structural details of the original setting, with one crucial exception: the human laborers have been replaced. In their stead are imaginary beings with incredibly flexible limbs and an uncanny number of eyes. This substitution aims to evoke a jarring tension between familiarity and strangeness. At first glance, the piece presents as a highly traditional work of 青花瓷 Qinghuaci (blue and white porcelain). Yet, upon closer inspection, the realization that these craftsmen are non-human beings creates an immediate tension, leaving ample room for thought.</p>
+                    </div>
+                </div>
+                <div class="image-labeled-container">
+                    <div class="split-media" onclick="openMedia(this, 'image')">
+                        <img src="Physical/B1.webp" alt="B1-Artifact Layer">
+                    </div>
+                    <div class="image-label">B1-Artifact</div>
+                </div>
+            </div>
+
+            <div class="split-row reverse">
+                <div class="split-text">
+                    <div class="description-block">
+                        <p>As technology advances, many forms of labor are being replaced by machinery, and now, artificial intelligence. Society frequently alienates these technologies, viewing them as monstrous forces that are slowly erasing humanity. But is that really true? Does a piece of work created through modern technology no longer belong to human heritage? Or are the shifts so subtle that, like the creatures in this porcelain factory, no one will notice until they look closer?</p>
+                    </div>
+                </div>
+                
+                <div class="slider-container">
+                    <button class="slider-arrow" id="slideLeftBtn" onclick="switchToB2()">&larr;</button>
+                    
+                    <div class="slider-wrapper">
+                        <div class="split-media" id="sliderMediaTarget" onclick="openMedia(this, 'image')">
+                            <img id="sliderImg" src="Physical/B3.webp" alt="Working Beings Finished Artifact">
+                        </div>
+                        <div class="image-label" id="sliderLabelTarget">B3-after firing</div>
+                    </div>
+                    
+                    <button class="slider-arrow hidden" id="slideRightBtn" onclick="switchToB3()">&rarr;</button>
+                </div>
+            </div>
+        </section>
+
+        <hr class="page-divider">
+
+        <section class="art-project">
+            
+            <div class="split-row">
+                <div class="split-text">
+                    <h2>I Have an Idea</h2>
+                    <div class="description-block">
+                        <p><em>I Have an Idea</em> is a sculpture created to mimic the experience of an individual surfing the internet. Featuring a white, cloth-like structure that completely covers the body and facial features of the figure underneath, the piece aims to express the strange sensation of navigating the digital landscape and communicating with complete strangers. Just like this figurine, our true emotions and identities are often smudged and blurred online. True joy may exist, but it is frequently hidden beneath the surface.</p>
+                    </div>
+                </div>
+                <div class="image-labeled-container">
+                    <div class="split-media" onclick="openMedia(this, 'image')">
+                        <img src="Physical/P1.webp" alt="I Have an Idea Sculpture View 1">
+                    </div>
+                </div>
+            </div>
+
+            <div class="split-row reverse">
+                <div class="split-text">
+                    <div class="description-block">
+                        <p>The lightbulb on the head relies on a very common metaphor for having an idea. However, in the digital world, who you are and what you feel is often treated as secondary to what you think or what value you can provide. People look for your perspectives long before they notice your emotions or your appearance. In many situations, this intellectual anonymity can be liberating and beneficial; in others, it can be deeply alienating. What do you see in this sculpture?</p>
+                    </div>
+                </div>
+                <div class="image-labeled-container">
+                    <div class="split-media" onclick="openMedia(this, 'image')">
+                        <img src="Physical/P2.webp" alt="I Have an Idea Sculpture View 2">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="viewer-overlay" id="vOverlay">
+        <button class="close-btn" onclick="closeViewer()">&times;</button>
+        <img id="vImg" class="viewer-content" src="" alt="">
+        <video id="vVideo" class="viewer-content" src="" controls loop></video>
+    </div>
+
+    <script>
+        const overlay = document.getElementById('vOverlay');
+        const viewerImg = document.getElementById('vImg');
+        const viewerVideo = document.getElementById('vVideo');
+        
+        // Interactive Toggle Logic for Slider Elements
+        const sliderImg = document.getElementById('sliderImg');
+        const sliderLabel = document.getElementById('sliderLabelTarget');
+        const leftBtn = document.getElementById('slideLeftBtn');
+        const rightBtn = document.getElementById('slideRightBtn');
+
+        function switchToB2() {
+            sliderImg.src = "Physical/B2.webp";
+            sliderImg.alt = "Working Beings Underglaze Before Firing";
+            sliderLabel.textContent = "B2-Underglaze (before firing)";
+            leftBtn.classList.add('hidden');
+            rightBtn.classList.remove('hidden');
+        }
+
+        function switchToB3() {
+            sliderImg.src = "Physical/B3.webp";
+            sliderImg.alt = "Working Beings Finished Artifact";
+            sliderLabel.textContent = "B3-after firing";
+            rightBtn.classList.add('hidden');
+            leftBtn.classList.remove('hidden');
+        }
+
+        // Lightbox Open/Close functions
+        function openMedia(element, type) {
+            viewerImg.classList.remove('show');
+            viewerVideo.classList.remove('show');
+            viewerVideo.pause();
+
+            if (type === 'image') {
+                viewerImg.src = element.querySelector('img').src;
+                viewerImg.classList.add('show');
+            } else if (type === 'video') {
+                viewerVideo.src = element.querySelector('video').src;
+                viewerVideo.classList.add('show');
+                viewerVideo.play();
+            }
+            overlay.classList.add('active');
+        }
+        
+        function closeViewer() { 
+            overlay.classList.remove('active'); 
+            viewerVideo.pause();
+            viewerImg.src = ""; 
+            viewerVideo.src = ""; 
+        }
+        
+        overlay.addEventListener('click', (e) => { 
+            if (e.target === overlay) closeViewer(); 
+        });
+    </script>
+</body>
+</html>

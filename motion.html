@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motion Graphics</title>
+    <style>
+        /* Import Playfair Display for the artistic heading style */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
+
+        :root {
+            --bg-color: #0b0b0c;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a5;
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+        body { 
+            margin: 0; 
+            padding: 0; 
+            background-color: var(--bg-color); 
+            color: var(--text-primary); 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            overflow-x: hidden; 
+        }
+        #bg-canvas { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            z-index: 1; 
+            pointer-events: none; 
+            opacity: 0.25; 
+        }
+        header {
+            position: fixed; top: 0; width: 100%; padding: 20px 40px; box-sizing: border-box;
+            display: flex; justify-content: space-between; align-items: center; z-index: 10;
+            background: linear-gradient(to bottom, rgba(11,11,12,0.95), rgba(11,11,12,0)); backdrop-filter: blur(8px);
+        }
+        .logo { font-weight: 700; letter-spacing: 2px; text-decoration: none; color: var(--text-primary); }
+        nav a { color: var(--text-secondary); text-decoration: none; margin-left: 24px; font-size: 14px; transition: color 0.3s; }
+        nav a.active { color: var(--text-primary); }
+        
+        main { 
+            position: relative; 
+            z-index: 2; 
+            max-width: 1600px; 
+            margin: 160px auto 100px auto; 
+            padding: 0 20px; 
+            box-sizing: border-box;
+        }
+        
+        .intro-section {
+            max-width: 880px;
+            margin: 0 auto;
+        }
+        
+        h1 { 
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 64px; 
+            font-weight: 400; 
+            letter-spacing: -1px; 
+            margin-bottom: 35px; 
+            color: var(--text-primary);
+        }
+        
+        .intro-section p { 
+            font-size: 20px; 
+            line-height: 1.8; 
+            color: var(--text-secondary); 
+            margin-bottom: 24px; 
+        }
+        
+        .page-divider { 
+            border: 0; 
+            height: 1px; 
+            background: #ffffff; 
+            opacity: 0.3;
+            margin: 60px auto; 
+            max-width: 1080px;
+        }
+        
+        .showcase-container {
+            display: flex;
+            flex-direction: column;
+            gap: 100px;
+            width: 100%;
+            align-items: center;
+        }
+
+        /* Split-screen row framework */
+        .video-card-row {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            width: 100%;
+            max-width: 1000px;
+        }
+        .video-card-row.reverse {
+            flex-direction: row-reverse;
+        }
+        
+        .video-side, .text-side {
+            flex: 1;
+            width: 100%;
+        }
+        
+        .video-wrapper {
+            position: relative; 
+            width: 100%; 
+            padding-bottom: 56.25%; /* 16:9 Widescreen display */
+            height: 0;
+            background: #000; 
+            border-radius: 4px; 
+            overflow: hidden;
+            border: 1px solid var(--border-color); 
+        }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        
+        .text-side h2 { 
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 34px; 
+            font-weight: 400;
+            letter-spacing: -0.5px;
+            margin-top: 0;
+            margin-bottom: 20px; 
+            color: var(--text-primary);
+        }
+        
+        .text-side p { 
+            font-size: 16px; 
+            color: var(--text-secondary); 
+            line-height: 1.8; 
+            margin-bottom: 0; 
+        }
+
+        /* More to See Layout Grid */
+        .more-to-see-section {
+            max-width: 880px;
+            margin: 100px auto 0 auto;
+            width: 100%;
+        }
+        .more-to-see-section h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 34px;
+            font-weight: 400;
+            margin-bottom: 30px;
+            color: var(--text-primary);
+        }
+        .more-grid {
+            display: flex;
+            gap: 30px;
+            width: 100%;
+        }
+        .more-item {
+            flex: 1;
+        }
+
+        /* Smooth scaling rules for tablet and mobile environments */
+        @media (max-width: 1024px) {
+            .intro-section, .video-card-row, .page-divider, .more-to-see-section {
+                max-width: 90%;
+            }
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 48px; }
+            .text-side h2, .more-to-see-section h3 { font-size: 28px; }
+            .intro-section p { font-size: 18px; }
+            .text-side p { font-size: 15px; }
+            header { padding: 20px; }
+            nav a { margin-left: 14px; font-size: 13px; }
+            
+            /* Force split views to stack vertically on small screens */
+            .video-card-row, .video-card-row.reverse {
+                flex-direction: column;
+                gap: 24px;
+            }
+            .more-grid {
+                flex-direction: column;
+                gap: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="bg-canvas"></canvas>
+    <header>
+        <a href="index.html" class="logo">PORTFOLIO</a>
+        <nav>
+            <a href="index.html">System Map</a>
+            <a href="films.html">Films</a>
+            <a href="motion.html" class="active">Motion Graphics</a>
+            <a href="designs.html">2D & 3D Designs</a>
+            <a href="games.html">Games</a>
+            <a href="physical.html">Physical Art Pieces</a>
+            <a href="goals.html">Goals</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Introduction Header -->
+        <div class="intro-section">
+            <h1>Motion Graphics</h1>
+            <p>To me, motion graphics is the magic of transforming simple, static shapes into dynamic, moving narratives. It is a medium that grants storyteller absolute creative freedom, offering a blank canvas where one can build from zero to infinity.</p>
+            <p>This collection showcases a diverse range of motion design styles. Each piece serves a distinct narrative or functional purpose, demonstrating how the medium seamlessly bridges artistic expression and cross-disciplinary applications.</p>
+        </div>
+
+        <hr class="page-divider">
+
+        <!-- Core Split Layout Showcase -->
+        <div class="showcase-container">
+            
+            <!-- Piece 1: Protein (Video Left, Text Right) -->
+            <div class="video-card-row">
+                <div class="video-side">
+                    <div class="video-wrapper">
+                        <!-- Corrected to YouTube embed format -->
+                        <iframe src="https://www.youtube.com/embed/-5UPJtT0NTA" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div class="text-side">
+                    <h2>Protein</h2>
+                    <p>"What are proteins?" This seemingly simple question is asked at every stage of the life sciences journey. This motion graphics piece aims to answer it with elegant simplicity, making complex molecular biology accessible even to a child.</p>
+                    <p>The narrative arc traces a macro-to-micro path: starting with the food on our plates before zooming deep into the microscopic world of DNA, ribosomes, and amino acids. Utilizing charming, character-driven cartoons and smooth, motion-based transitions, this animation translates abstract scientific data into a delightful visual experience for audiences of all age groups.</p>
+                </div>
+            </div>
+
+            <!-- Piece 2: Motor Skills (Video Right, Text Left) -->
+            <div class="video-card-row reverse">
+                <div class="video-side">
+                    <div class="video-wrapper">
+                        <!-- Corrected to YouTube embed format -->
+                        <iframe src="https://www.youtube.com/embed/tT5FSb-E5t0" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div class="text-side">
+                    <h2>Infant Motor Skills</h2>
+                    <p>Infant Motor Skills is an educational animation that breaks down the foundational milestones and key variables in early childhood development. Utilizing clean, purposeful motion graphics, the video visualizes the complex interplay between genetic blueprints and environmental influences. </p>
+                    <p>Beyond delivering fundamental biological facts, this short film carries a dual purpose: it acts as a cautionary tale for the digital age, encouraging parents and caregivers to think critically and verify sources before trusting online medical information.</p>
+                </div>
+            </div>
+
+            <!-- Piece 3: Self Intro (Video Left, Text Right) -->
+            <div class="video-card-row">
+                <div class="video-side">
+                    <div class="video-wrapper">
+                        <!-- Corrected to YouTube embed format -->
+                        <iframe src="https://www.youtube.com/embed/6H74o9XKMkY" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div class="text-side">
+                    <h2>Self Intro</h2>
+                    <p>This motion graphics piece is a unique self-introduction created in collaboration with artwork from my childhood. The short video captures a playful, meta-narrative interaction between myself and a paper character, establishing a fun dynamic that offers a glimpse into my creative personality. </p>
+                    <p>Beyond a personal introduction, the animation explores the technical and conceptual boundary of a character breaking out of her 2D constraints and crossing over into a 3D realm. By blurring the line between the page and reality, the film leaves the audience with a whimsical question: Who knows what will happen now that she has escaped?</p>
+                </div>
+            </div>
+
+        </div>
+
+        
+    </main>
+
+    <script>
+        const canvas = document.getElementById('bg-canvas'); const ctx = canvas.getContext('2d'); let dots = [];
+        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        window.addEventListener('resize', resize); resize();
+        for(let i=0; i<25; i++) dots.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*1+0.5, sx: (Math.random()-0.5)*0.2, sy: (Math.random()-0.5)*0.2 });
+        function draw() {
+            ctx.clearRect(0,0,canvas.width,canvas.height); ctx.fillStyle = '#ffffff';
+            dots.forEach(d => { d.x += d.sx; d.y += d.sy; if(d.x<0||d.x>canvas.width) d.sx*=-1; if(d.y<0||d.y>canvas.height) d.sy*=-1; ctx.beginPath(); ctx.arc(d.x,d.y,d.r,0,Math.PI*2); ctx.fill(); });
+            requestAnimationFrame(draw);
+        }
+        draw();
+    </script>
+</body>
+</html>
