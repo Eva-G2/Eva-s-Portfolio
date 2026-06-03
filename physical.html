@@ -205,10 +205,10 @@
                 </div>
                 <div class="media-double">
                     <div class="sub-media" onclick="openMedia(this, 'image')">
-                        <img src="Physical/Specimen.webp" alt="Bone Specimen Original">
+                        <img src="Physical/Specimen.png" alt="Bone Specimen Original">
                     </div>
                     <div class="sub-media" onclick="openMedia(this, 'image')">
-                        <img src="Physical/Analysed%20Specimen.webp" alt="Analysed Specimen Mapping">
+                        <img src="Physical/Analysed%20Specimen.png" alt="Analysed Specimen Mapping">
                     </div>
                 </div>
             </div>
@@ -221,7 +221,7 @@
                 </div>
                 <div class="image-labeled-container">
                     <div class="split-media" onclick="openMedia(this, 'image')">
-                        <img src="Physical/C2.webp" alt="Ceramic Plate View 2">
+                        <img src="Physical/C2.png" alt="Ceramic Plate View 2">
                     </div>
                 </div>
             </div>
@@ -255,9 +255,9 @@
                 </div>
                 <div class="image-labeled-container">
                     <div class="split-media" onclick="openMedia(this, 'image')">
-                        <img src="Physical/B1.webp" alt="B1-Artifact Layer">
+                        <img src="Physical/B1.png" alt="B1-Artifact Layer">
                     </div>
-                    <div class="image-label">B1-Artifact</div>
+                    <div class="image-label">Museum Artifact</div>
                 </div>
             </div>
 
@@ -273,9 +273,9 @@
                     
                     <div class="slider-wrapper">
                         <div class="split-media" id="sliderMediaTarget" onclick="openMedia(this, 'image')">
-                            <img id="sliderImg" src="Physical/B3.webp" alt="Working Beings Finished Artifact">
+                            <img id="sliderImg" src="Physical/B3.png" alt="Working Beings Finished Artifact">
                         </div>
-                        <div class="image-label" id="sliderLabelTarget">B3-after firing</div>
+                        <div class="image-label" id="sliderLabelTarget">After firing</div>
                     </div>
                     
                     <button class="slider-arrow hidden" id="slideRightBtn" onclick="switchToB3()">&rarr;</button>
@@ -296,7 +296,7 @@
                 </div>
                 <div class="image-labeled-container">
                     <div class="split-media" onclick="openMedia(this, 'image')">
-                        <img src="Physical/P1.webp" alt="I Have an Idea Sculpture View 1">
+                        <img src="Physical/P1.png" alt="I Have an Idea Sculpture View 1">
                     </div>
                 </div>
             </div>
@@ -309,7 +309,7 @@
                 </div>
                 <div class="image-labeled-container">
                     <div class="split-media" onclick="openMedia(this, 'image')">
-                        <img src="Physical/P2.webp" alt="I Have an Idea Sculpture View 2">
+                        <img src="Physical/P2.png" alt="I Have an Idea Sculpture View 2">
                     </div>
                 </div>
             </div>
@@ -334,17 +334,17 @@
         const rightBtn = document.getElementById('slideRightBtn');
 
         function switchToB2() {
-            sliderImg.src = "Physical/B2.webp";
+            sliderImg.src = "Physical/B2.png";
             sliderImg.alt = "Working Beings Underglaze Before Firing";
-            sliderLabel.textContent = "B2-Underglaze (before firing)";
+            sliderLabel.textContent = "Underglaze (before firing)";
             leftBtn.classList.add('hidden');
             rightBtn.classList.remove('hidden');
         }
 
         function switchToB3() {
-            sliderImg.src = "Physical/B3.webp";
+            sliderImg.src = "Physical/B3.png";
             sliderImg.alt = "Working Beings Finished Artifact";
-            sliderLabel.textContent = "B3-after firing";
+            sliderLabel.textContent = "After firing";
             rightBtn.classList.add('hidden');
             leftBtn.classList.remove('hidden');
         }
